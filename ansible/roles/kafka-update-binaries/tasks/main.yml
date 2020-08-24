@@ -1,0 +1,24 @@
+- name: Unzip Kafka
+  unarchive:
+    src: "{{ artifacts_path }}/kafka_2.12-2.5.0.tgz"
+    dest: "{{kafka_install_path}}/"
+    owner: kafka
+    group: kafka
+    mode: 0770
+
+- name: Link Kafka installation dir
+  file:
+    src: "{{kafka_install_path}}/kafka_2.12-2.5.0"
+    dest: "{{kafka_install_path}}/kafka"
+    state: link
+    owner: kafka
+    group: kafka
+    mode: 0770
+
+- name: Create Kafka configuration
+  template:
+    src: "kafka.server.properties.j2"
+    dest: "{{kafka_install_path}}/kafka/config/server.properties"
+    owner: kafka
+    group: kafka
+    mode: 0770

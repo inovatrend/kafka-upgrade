@@ -1,0 +1,12 @@
+---
+
+- name: Waiting kafka service to be ready
+  shell: '{{kafka_install_path}}/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server {{internal_hostname}}:9092 | grep -c "id: {{ groups.kafkaservers.index(inventory_hostname) + 1 }}"'
+  register: app_check_ok
+  until: app_check_ok.stdout.find("0")
+  retries: 30
+  delay: "1"
+
+- name: sleep for 5 minutes
+  pause:
+    minutes: 5

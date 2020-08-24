@@ -1,0 +1,53 @@
+#KAFKA UPGRADE
+#FIRST STEP - set inter.broker.protocol.version and log.message.format.version to current version
+- name: set inter.broker.protocol.version and log.message.format.version to current version
+  become: yes
+  hosts: kafkaservers
+  serial: 1
+  tags:
+    - kafka-upgrade
+  roles:
+    - role: kafka-set-current-versions
+    - role: service-start
+      service_name: kafka
+    - role: kafka-check
+
+##SECOND STEP - link kafka binaries to new version
+- name: link kafka binaries to new version
+  become: yes
+  hosts: kafkaservers
+  serial: 1
+  tags:
+    - kafka-upgrade
+  roles:
+    - role: kafka-update-binaries
+    - role: service-start
+      service_name: kafka
+    - role: kafka-check
+
+#THIRD STEP - set inter.broker.protocol.version to newest version
+- name: set inter.broker.protocol to newest version
+  become: yes
+  hosts: kafkaservers
+  serial: 1
+  tags:
+    - update-versions
+  roles:
+    - role: kafka-update-inter-broker-protocol
+    - role: service-start
+      service_name: kafka
+    - role: kafka-check
+
+#FOURTH STEP - set log.message.format.version to newest version
+- name: set log.message.format to newest version
+  become: yes
+  hosts: kafkaservers
+  serial: 1
+  tags:
+    - update-versions
+  roles:
+    - role: kafka-update-log-message-format
+    - role: service-start
+      service_name: kafka
+    - role: kafka-check
+#/KAFKA UPGRADE

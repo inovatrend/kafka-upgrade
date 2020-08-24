@@ -1,0 +1,7 @@
+- name: Update Kafka configuration
+  template:
+    src: "kafka.server.properties.j2"
+    dest: "{{kafka_install_path}}/kafka/config/server.properties"
+    owner: kafka
+    group: kafka
+    mode: 0770

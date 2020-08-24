@@ -1,0 +1,4 @@
+[kafkaservers]
+kafka1 external_ip={EXTERNAL_IP} internal_ip={INTERNAL_IP} internal_hostname=kafka1 kafka_install_path=/opt/app ansible_ssh_host={ANSIBLE_SSH_HOST} ansible_connection=ssh ansible_ssh_user=kafka
+kafka2 external_ip={EXTERNAL_IP} internal_ip={INTERNAL_IP} internal_hostname=kafka2 kafka_install_path=/opt/app ansible_ssh_host={ANSIBLE_SSH_HOST} ansible_connection=ssh ansible_ssh_user=kafka
+kafka3 external_ip={EXTERNAL_IP} internal_ip={INTERNAL_IP} internal_hostname=kafka3 kafka_install_path=/opt/app ansible_ssh_host={ANSIBLE_SSH_HOST} ansible_connection=ssh ansible_ssh_user=kafka
